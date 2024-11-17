@@ -1,4 +1,4 @@
-# purpose: scraping fragrantica, and creating read only obj's in mongo
+# purpose: scraping fragrantica, and creating Fragrance objects?
 
 def fetchNotes(fragrance_name: str) -> dict:
     pass
