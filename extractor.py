@@ -16,7 +16,6 @@ GSEARCH_CUSTOM_ENGINE = os.getenv("GSEARCH_CUSTOM_ENGINE")
 
 def parseInformationFromFragrance(fragrance_input: str) -> Fragrance:
     name, brand, website_link = searchNameBrandLink(fragrance_input)
-    print(name, brand, website_link)
     saved_html_file = saveHTMLfile(website_link)
     all_notes = extractAllNotes(saved_html_file)
 
@@ -24,12 +23,15 @@ def parseInformationFromFragrance(fragrance_input: str) -> Fragrance:
     return parsedFrag
 
 def searchNameBrandLink(fragrance_input: str) -> list[str]:
+    # should query db before searching, we are rate limited on the api
     service = build("customsearch", "v1", developerKey=GSEARCH_API_KEY)
     [item] = service.cse().list(q=fragrance_input, cx=GSEARCH_CUSTOM_ENGINE,num=1).execute()['items']
     link, title = (item['link'], item['title'])
+
     actualTitle = title.split("»")[0]
     [name, brand] = actualTitle.split(' by ')
     brand = brand.split('(')[0]
+    
     return [name, brand, link]
 
 def extractAllNotes(saved_html_file) -> Dict[Fragrance.NoteTypes, list[str]]:
