@@ -7,11 +7,10 @@ class Fragrance:
         MIDDLE = "middle"
         BASE = "base"
     
-    def __init__(self, brand="", name="", unparsed_name="", website_link="", notes=None):
+    def __init__(self, brand="", name="", website_link="", notes=None):
       
         self.brand = brand
         self.name = name
-        self.unparsed_name = unparsed_name
         self.website_link = website_link
         if notes is None:
             notes = {note_type: [] for note_type in Fragrance.NoteTypes}

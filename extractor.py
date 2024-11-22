@@ -19,7 +19,8 @@ def parseInformationFromFragrance(fragrance_input: str) -> Fragrance:
     saved_html_file = saveHTMLfile(website_link)
     all_notes = extractAllNotes(saved_html_file)
 
-    parsedFrag = Fragrance(brand=brand, name=name, unparsed_name=fragrance_input, website_link=website_link, notes=all_notes)
+    parsedFrag = Fragrance(brand=brand, name=name, website_link=website_link, notes=all_notes)
+    # add mapper using redis, maybe add to collection later to reconstruct redis cache (prob bad sys design)
     return parsedFrag
 
 def searchNameBrandLink(fragrance_input: str) -> list[str]:
